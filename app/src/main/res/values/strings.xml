@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Nutrition Scanning</string>
+    <!--scanning screen-->
+    <string name="title_scan_your_food">Scan Your Food</string>
+    <string name="description_scan_your_food">Ensure your food is well-lit and in focus for the most accurate scan.</string>
+    <string name="cd_choose_from_gallery">Choose from gallery</string>
+
+    <!--image processing screen-->
+    <string name="txt_scanning_in_progress">Scanning in progress…</string>
+    <string name="txt_complete">Scan complete</string>
+    <string name="title_food_analysis">Food analysis</string>
+</resources>
