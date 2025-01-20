@@ -1,6 +1,7 @@
 package com.example.nutritionscanning.presenatation.scanning.screen
 
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.camera.core.ImageCapture
 import androidx.compose.foundation.Image
@@ -32,19 +33,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nutritionscanning.R
+import com.example.nutritionscanning.presenatation.core.utils.SpacerLowV
 import com.example.nutritionscanning.presenatation.scanning.components.CameraPreviewScreen
 import com.example.nutritionscanning.presenatation.scanning.components.CustomOverlay
 import com.example.nutritionscanning.presenatation.scanning.components.captureImage
 import com.example.nutritionscanning.ui.theme.dimenLow
 import com.example.nutritionscanning.ui.theme.dimenMed
-import com.example.nutritionscanning.presenatation.core.utils.SpacerMedV
 
 @Composable
 fun ScanningScreen(
@@ -88,16 +92,16 @@ fun ScanningScreen(
                         )
                     }
 
-                    val flashIcon = if (false) R.drawable.ic_flash_on else R.drawable.ic_flash_off
-
                     Icon(
-                        painter = painterResource(flashIcon),
+                        painter = rememberVectorPainter(
+                            ImageVector.vectorResource(R.drawable.ic_flash_off)
+                        ),
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
                         tint = Color.White
                     )
                 }
-                SpacerMedV()
+                SpacerLowV()
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -109,11 +113,13 @@ fun ScanningScreen(
                         .padding(dimenMed),
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_scanner),
+                        painter = rememberVectorPainter(
+                            ImageVector.vectorResource(R.drawable.ic_scanner)
+                        ),
                         contentDescription = null,
                         modifier = Modifier
-                            .padding(end = 12.dp)
-                            .size(32.dp),
+                            .padding(top = 4.dp, end = 12.dp)
+                            .size(28.dp),
                         colorFilter = ColorFilter.tint(Color.White)
                     )
                     Column {
@@ -163,20 +169,15 @@ fun ScanningScreen(
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape)
-                        .background(Color.Green)
+                        .background(MaterialTheme.colorScheme.secondary)
                         .border(dimenLow, Color.White, CircleShape)
                         .clickable {
                             captureImage(
                                 context, imageCapture, onSuccess = {
-                                    Toast
-                                        .makeText(context, "Saved $it", Toast.LENGTH_SHORT)
-                                        .show()
                                     onNavigateToImageProcessing(it)
                                 },
                                 onFailure = {
-                                    Toast
-                                        .makeText(context, "${it.message}", Toast.LENGTH_SHORT)
-                                        .show()
+                                    Log.d(javaClass.name, "ScanningScreen: ${it.message} ")
                                 }
                             )
                         }

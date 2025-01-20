@@ -20,9 +20,15 @@ fun AnimatedContentTransitionScope<NavBackStackEntry>.exitToLeft(): @JvmSuppress
     )
 }
 
+fun AnimatedContentTransitionScope<NavBackStackEntry>.enterFromBottom(): @JvmSuppressWildcards EnterTransition? {
+    return slideIn(
+        initialOffset = { IntOffset(0, it.height) },
+    )
+}
+
 fun AnimatedContentTransitionScope<NavBackStackEntry>.exitToBottom(): @JvmSuppressWildcards ExitTransition? {
     return slideOut(
-        targetOffset = { IntOffset(0, 0 - it.height) },
+        targetOffset = { IntOffset(0, it.height) },
     )
 }
 

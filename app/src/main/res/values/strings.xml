@@ -9,4 +9,32 @@
     <string name="txt_scanning_in_progress">Scanning in progress…</string>
     <string name="txt_complete">Scan complete</string>
     <string name="title_food_analysis">Food analysis</string>
+
+    <!--nutrition result screen-->
+    <string name="txt_nutrition_result">Nutrition Results</string>
+    <string name="txt_pepperoni_pizza">Pepperoni Pizza</string>
+    <string name="txt_nutritional_overview">Nutritional Overview</string>
+    <string name="txt_calories">Calories</string>
+    <string name="txt_macronutrients">Macronutrients</string>
+    <string name="txt_protein">Proteins</string>
+    <string name="txt_carbs">Carbs</string>
+    <string name="txt_fats">Fats</string>
+    <string name="txt_micronutrients">Micronutrients</string>
+    <string name="txt_vitamin_a">Vitamin A</string>
+    <string name="txt_calcium">Calcium</string>
+    <string name="txt_weekly_meal_nutrition">Weekly Meal Nutrition</string>
+    <string name="txt_save_to_daily_log">Save to Daily Log</string>
+    <string name="txt_want_more_insights">Want more insights?</string>
+    <string name="txt_upgrade_to_premium">Upgrade to Premium</string>
+    <string name="txt_total">Total %1$s</string>
+
+    <!--  streaks screen  -->
+    <string name="txt_back_button">Back button</string>
+    <string name="title_streaks">Streaks</string>
+    <string name="X_day_streak_achiever">%1$s-day streak achiever</string>
+    <string name="txt_you_re_on_a">You\'re on a</string>
+    <string name="txt_keep_it_up">Keep it up!</string>
+    <string name="action_view_all">View All</string>
+    <string name="label_milestones">Milestones</string>
+
 </resources>

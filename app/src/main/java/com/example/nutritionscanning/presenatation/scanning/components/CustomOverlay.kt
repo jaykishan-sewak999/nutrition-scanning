@@ -1,16 +1,13 @@
 package com.example.nutritionscanning.presenatation.scanning.components
 
-import android.R.attr.height
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -42,7 +39,7 @@ fun CustomOverlay() {
         width = size.width * 0.8f
         height = size.height * 0.4f
         left = (size.width - height) / 2
-        top = (size.height - height) / 2.25f
+        top = (size.height - height) / 2
 
         drawRoundRect(
             color = Color.Black.copy(alpha = 0.5f),
@@ -62,15 +59,14 @@ fun CustomOverlay() {
         composition = composition,
         modifier = Modifier
             .size(
-            width = (height / displayMetrics.density).dp ,
-            height = (height / displayMetrics.density).dp
-        )
+                width = (height / displayMetrics.density).dp,
+                height = (height / displayMetrics.density).dp
+            )
             .offset(
-                x = (left / displayMetrics.density).dp ,
+                x = (left / displayMetrics.density).dp,
                 y = (top / displayMetrics.density).dp
             )
-            .clip(RoundedCornerShape(cornerRadius))
-        ,
+            .clip(RoundedCornerShape(cornerRadius)),
         iterations = Int.MAX_VALUE
     )
 }

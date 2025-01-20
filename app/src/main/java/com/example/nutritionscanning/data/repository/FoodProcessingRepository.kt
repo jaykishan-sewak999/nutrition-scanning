@@ -13,16 +13,16 @@ class FoodProcessingRepository @Inject constructor() {
     suspend fun getNutritionByFoodImage(uri: Uri): Nutrition = withContext(Dispatchers.IO) {
         delay(2000)
         val dummyNutrition = Nutrition(
-            calories = "200",
+            calories = "320 kcal",
             macronutrients = Macronutrients(
-                proteins = "10g",
-                carbs = "30g",
-                fats = "5g"
+                proteins = "20g",
+                carbs = "40g",
+                fats = "10g"
             ),
             micronutrients = Micronutrients(
-                vitaminA = "500mcg",
-                calcium = "100mg"
-            )
+                vitaminA = "10%",
+                calcium = "15%"
+            ),
         )
         return@withContext dummyNutrition
     }

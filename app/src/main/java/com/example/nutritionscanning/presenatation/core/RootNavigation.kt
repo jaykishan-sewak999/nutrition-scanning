@@ -14,6 +14,7 @@ import androidx.navigation.toRoute
 import com.example.nutritionscanning.presenatation.imageprocessing.ImageProcessingScreen
 import com.example.nutritionscanning.presenatation.nutritionresult.NutritionResultsScreen
 import com.example.nutritionscanning.presenatation.scanning.screen.ScanningScreen
+import com.example.nutritionscanning.presenatation.streak.StreaksScreen
 
 @Composable
 fun RootNavigation(
@@ -27,25 +28,26 @@ fun RootNavigation(
         modifier = modifier
     ) {
         composable<AppDestinations.HomeScreens> {
-            NutritionResultsScreen()
+            DummyScreen("Upcoming")
         }
 
         composable<AppDestinations.LogsScreens> {
-            DummyScreen("Logs")
+            NutritionResultsScreen()
         }
 
         composable<AppDestinations.StreaksScreens> {
-            DummyScreen("Streaks")
+            StreaksScreen()
         }
 
         composable<AppDestinations.ProfileScreens> {
-            DummyScreen("Profile")
+            DummyScreen("Upcoming")
         }
 
         composable<AppDestinations.ScanScreens>(
             popExitTransition = { exitToBottom() },
-            enterTransition = { enterFromLeft() },
+            enterTransition = { enterFromBottom() },
             exitTransition = { exitToLeft() }
+
         ) {
             ScanningScreen(
                 onNavBack = {
@@ -64,7 +66,11 @@ fun RootNavigation(
         ) {
             val imageUri = it.toRoute<AppDestinations.ImageProcessingScreens>().imageUri
             ImageProcessingScreen(
-                imageUri = Uri.parse(imageUri)
+                imageUri = Uri.parse(imageUri),
+                onProcessCompleted = {
+                    navController.popBackStack()
+                    navController.navigate(AppDestinations.LogsScreens)
+                }
             )
         }
     }

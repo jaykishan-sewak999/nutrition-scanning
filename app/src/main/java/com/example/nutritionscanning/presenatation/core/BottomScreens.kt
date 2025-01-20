@@ -28,35 +28,36 @@ sealed class BottomScreens<T>(val name: String, val icon: Int, val route: T) {
     @Serializable
     data object Home : BottomScreens<AppDestinations.HomeScreens>(
         name = "Home",
-        icon = R.drawable.outline_home,
+        icon = R.drawable.home,
         route = AppDestinations.HomeScreens
     )
 
     @Serializable
     data object Logs : BottomScreens<AppDestinations.LogsScreens>(
         name = "Logs",
-        icon = R.drawable.outline_logs,
+        icon = R.drawable.logs,
         route = AppDestinations.LogsScreens
     )
 
 
+    @Serializable
     data object Scan : BottomScreens<AppDestinations.ScanScreens>(
         name = "Scan",
-        icon = R.drawable.outline_home,
+        icon = R.drawable.home,
         route = AppDestinations.ScanScreens
     )
 
     @Serializable
     data object Streaks : BottomScreens<AppDestinations.StreaksScreens>(
         name = "Streaks",
-        icon = R.drawable.outline_fire,
+        icon = R.drawable.streaks,
         route = AppDestinations.StreaksScreens
     )
 
     @Serializable
     data object Profile : BottomScreens<AppDestinations.ProfileScreens>(
         name = "Profile",
-        icon = R.drawable.outline_person,
+        icon = R.drawable.profile,
         route = AppDestinations.ProfileScreens
     )
 }
