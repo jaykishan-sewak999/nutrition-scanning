@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,8 +34,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nutritionscanning.R
 import com.example.nutritionscanning.presenatation.core.utils.SpacerMedV
+import com.example.nutritionscanning.ui.theme.Black
+import com.example.nutritionscanning.ui.theme.White
 import com.example.nutritionscanning.ui.theme.dimenLow
 import com.example.nutritionscanning.ui.theme.dimenMed
+import com.example.nutritionscanning.ui.theme.Secondary
+import com.example.nutritionscanning.ui.theme.GrayTextColor
 import kotlinx.coroutines.delay
 
 @Composable
@@ -54,7 +57,9 @@ fun ImageProcessingScreen(
 
     val uiState by viewModel.imageProcessingState.collectAsState()
 
-    Scaffold { paddingValues ->
+    Scaffold(
+        containerColor = White
+    ) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -96,11 +101,12 @@ fun ImageProcessingScreen(
                         }
 
                         Text(
-                            if (uiState.progress < 1) {
+                            text = if (uiState.progress < 1) {
                                 stringResource(R.string.txt_scanning_in_progress)
                             } else {
                                 stringResource(R.string.txt_complete)
-                            }
+                            },
+                            color = GrayTextColor
                         )
 
                         SpacerMedV()
@@ -110,7 +116,7 @@ fun ImageProcessingScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(dimenLow),
-                            color = MaterialTheme.colorScheme.secondary,
+                            color = Secondary,
                             trackColor = Color.LightGray,
                             strokeCap = StrokeCap.Round
                         )
@@ -118,7 +124,8 @@ fun ImageProcessingScreen(
                         SpacerMedV()
 
                         Text(
-                            "$animatedProgressInt%",
+                            text = "$animatedProgressInt%",
+                            color = Black,
                             fontSize = 24.sp,
                             fontWeight = FontWeight.SemiBold
                         )

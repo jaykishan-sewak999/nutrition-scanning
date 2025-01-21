@@ -2,7 +2,9 @@ package com.example.nutritionscanning.presenatation.scanning.screen
 
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ImageCapture
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -47,6 +49,7 @@ import com.example.nutritionscanning.presenatation.core.utils.SpacerLowV
 import com.example.nutritionscanning.presenatation.scanning.components.CameraPreviewScreen
 import com.example.nutritionscanning.presenatation.scanning.components.CustomOverlay
 import com.example.nutritionscanning.presenatation.scanning.components.captureImage
+import com.example.nutritionscanning.ui.theme.Secondary
 import com.example.nutritionscanning.ui.theme.dimenLow
 import com.example.nutritionscanning.ui.theme.dimenMed
 
@@ -58,6 +61,15 @@ fun ScanningScreen(
     val context = LocalContext.current
     val imageCapture = remember { ImageCapture.Builder().build() }
     val transGray = Color.LightGray.copy(alpha = 0.2f)
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
+        uri?.let { uri ->
+            onNavigateToImageProcessing(uri)
+        }
+    }
+
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier.fillMaxSize()
@@ -160,6 +172,11 @@ fun ScanningScreen(
                     modifier = Modifier
                         .size(44.dp)
                         .clip(CircleShape)
+                        .clickable {
+                            imagePickerLauncher.launch(
+                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                            )
+                        }
                         .background(transGray)
                         .padding(12.dp),
                     tint = Color.White
@@ -169,7 +186,7 @@ fun ScanningScreen(
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.secondary)
+                        .background(Secondary)
                         .border(dimenLow, Color.White, CircleShape)
                         .clickable {
                             captureImage(

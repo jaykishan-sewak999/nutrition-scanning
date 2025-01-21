@@ -32,7 +32,10 @@ fun RootNavigation(
         }
 
         composable<AppDestinations.LogsScreens> {
-            NutritionResultsScreen()
+            val imageUri = it.toRoute<AppDestinations.LogsScreens>().imageUri
+            NutritionResultsScreen(
+                imageUri = imageUri?.let { Uri.parse(it) }
+            )
         }
 
         composable<AppDestinations.StreaksScreens> {
@@ -69,7 +72,7 @@ fun RootNavigation(
                 imageUri = Uri.parse(imageUri),
                 onProcessCompleted = {
                     navController.popBackStack()
-                    navController.navigate(AppDestinations.LogsScreens)
+                    navController.navigate(AppDestinations.LogsScreens(imageUri))
                 }
             )
         }

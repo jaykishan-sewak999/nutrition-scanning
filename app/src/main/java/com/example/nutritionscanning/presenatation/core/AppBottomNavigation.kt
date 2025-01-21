@@ -42,7 +42,9 @@ fun AppBottomNavigation(
         ) {
             bottomScreens.forEachIndexed { index, screen ->
                 val isSelected = currentDestination
-                    ?.hierarchy?.any { it.route == screen.route::class.qualifiedName } == true
+                    ?.hierarchy?.any {
+                        it.route.toString().substringBefore("?") == screen.route::class.qualifiedName
+                    } == true
                 if (index != 2) {
                     BottomNavigationItem(
                         selected = isSelected,

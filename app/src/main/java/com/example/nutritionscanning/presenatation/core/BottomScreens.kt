@@ -8,7 +8,7 @@ sealed class AppDestinations {
     data object HomeScreens : AppDestinations()
 
     @Serializable
-    data object LogsScreens : AppDestinations()
+    data class LogsScreens(val imageUri: String? = null) : AppDestinations()
 
     @Serializable
     data object StreaksScreens : AppDestinations()
@@ -36,7 +36,7 @@ sealed class BottomScreens<T>(val name: String, val icon: Int, val route: T) {
     data object Logs : BottomScreens<AppDestinations.LogsScreens>(
         name = "Logs",
         icon = R.drawable.logs,
-        route = AppDestinations.LogsScreens
+        route = AppDestinations.LogsScreens()
     )
 
 

@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,36 +34,43 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.nutritionscanning.R
-import com.example.nutritionscanning.presenatation.core.utils.SpacerMedV
-import com.example.nutritionscanning.ui.theme.dimenLow
-import com.example.nutritionscanning.ui.theme.dimenMed
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.nutritionscanning.R
+import com.example.nutritionscanning.presenatation.core.utils.SpacerLowV
+import com.example.nutritionscanning.presenatation.core.utils.SpacerMedV
+import com.example.nutritionscanning.ui.theme.Black
+import com.example.nutritionscanning.ui.theme.BlackTextColor
+import com.example.nutritionscanning.ui.theme.Gray
+import com.example.nutritionscanning.ui.theme.Secondary
 import com.example.nutritionscanning.ui.theme.Transparent
 import com.example.nutritionscanning.ui.theme.White
-import com.example.nutritionscanning.ui.theme.greyTextColor
+import com.example.nutritionscanning.ui.theme.dimenLow
+import com.example.nutritionscanning.ui.theme.dimenMed
+import com.example.nutritionscanning.ui.theme.GrayTextColor
+import java.util.Calendar
 
 @Composable
 fun StreaksScreen() {
     val context = LocalContext.current
     val viewModel = hiltViewModel<StreakViewModel>()
     val uiState by viewModel.streaksUiState.collectAsState()
+    val streakDays = listOf(31, 1, 2, 3, 4)
 
     val milestoneIconMap = remember {
         mapOf(
@@ -73,30 +82,26 @@ fun StreaksScreen() {
     }
 
     Scaffold(
-        topBar = {
-            StreaksAppBar()
-        },
-        containerColor = White
+        topBar = { StreaksAppBar() },
+        containerColor = White,
     ) { paddingValues ->
-
         Column(
             Modifier
-                .padding(
-                    top = paddingValues.calculateTopPadding()
-                )
+                .padding(top = paddingValues.calculateTopPadding())
                 .padding(horizontal = dimenMed)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SpacerMedV()
+
             Box {
                 Image(
                     painter = painterResource(R.drawable.streak_fire_yellow),
                     contentDescription = null,
-                    Modifier.size(128.dp)
+                    modifier = Modifier.size(128.dp)
                 )
                 Text(
-                    "${uiState.currentStreak}",
+                    text = "${uiState.currentStreak}",
                     fontSize = 56.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
@@ -106,48 +111,38 @@ fun StreaksScreen() {
             }
 
             SpacerMedV()
-            Text(stringResource(R.string.txt_you_re_on_a), fontSize = 15.sp, color = greyTextColor)
+
             Text(
-                "${uiState.currentStreak} ${
-                    if (uiState.currentStreak == 1) "day"
-                    else "days"
-                } Streak!",
+                text = stringResource(R.string.txt_you_re_on_a),
+                color = GrayTextColor,
+                fontSize = 15.sp
+            )
+            Text(
+                text = "${uiState.currentStreak} ${if (uiState.currentStreak == 1) "day" else "days"} Streak!",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.W600
             )
-            Text(stringResource(R.string.txt_keep_it_up), fontSize = 15.sp, color = greyTextColor)
+            Text(
+                text = stringResource(R.string.txt_keep_it_up),
+                color = GrayTextColor,
+                fontSize = 15.sp
+            )
 
             SpacerMedV()
 
-            // TODO : Replace with Streak calender
             Box {
-                Column {
-                    Spacer(
-                        Modifier
-                            .height(200.dp)
-                            .fillMaxWidth()
-                            .border(
-                                width = 1.dp,
-                                color = Color.LightGray,
-                                shape = RoundedCornerShape(dimenMed + dimenLow)
-                            )
-                    )
-                    SpacerMedV()
-                }
+                StreakCalendarUI(streakDays, viewModel = viewModel)
+
                 uiState.nextMilestone?.let { milestone ->
                     Card(
-                        Modifier
-                            .align(Alignment.BottomCenter),
-                        elevation = CardDefaults.elevatedCardElevation(
-                            2.dp
-                        )
+                        modifier = Modifier.align(Alignment.BottomCenter),
+                        elevation = CardDefaults.elevatedCardElevation(2.dp),
+                        shape = RoundedCornerShape(40),
                     ) {
                         Row(
                             Modifier
                                 .background(
-                                    brush = Brush.linearGradient(
-                                        milestone.gradient
-                                    ),
+                                    brush = Brush.linearGradient(milestone.gradient),
                                     shape = RoundedCornerShape(40)
                                 )
                                 .padding(horizontal = dimenLow, vertical = 4.dp),
@@ -156,21 +151,20 @@ fun StreaksScreen() {
                             Image(
                                 painter = rememberVectorPainter(
                                     ImageVector.vectorResource(
-                                        milestoneIconMap[milestone.level]
+                                        id = milestoneIconMap[milestone.level]
                                             ?: R.drawable.milestone_badge_silver
                                     )
                                 ),
                                 contentDescription = null,
-                                Modifier.size(20.dp)
+                                modifier = Modifier.size(20.dp)
                             )
                             Text(
                                 text = stringResource(
-                                    R.string.X_day_streak_achiever,
-                                    milestone.level.days
+                                    R.string.X_day_streak_achiever, milestone.level.days
                                 ),
                                 fontSize = 12.sp,
-                                modifier = Modifier
-                                    .padding(start = 4.dp)
+                                modifier = Modifier.padding(start = 4.dp),
+                                color = BlackTextColor
                             )
                         }
                     }
@@ -190,7 +184,7 @@ fun StreaksScreen() {
                     Text(
                         stringResource(R.string.action_view_all),
                         fontSize = 15.sp,
-                        color = greyTextColor
+                        color = GrayTextColor
                     )
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
@@ -198,10 +192,11 @@ fun StreaksScreen() {
                         Modifier
                             .size(24.dp)
                             .padding(4.dp),
-                        tint = greyTextColor
+                        tint = GrayTextColor
                     )
                 }
             }
+
             SpacerMedV()
 
             uiState.milestones.forEach {
@@ -210,6 +205,7 @@ fun StreaksScreen() {
                     icon = milestoneIconMap[it.level] ?: R.drawable.milestone_badge_silver,
                     modifier = Modifier.fillMaxWidth()
                 )
+
                 SpacerMedV()
             }
         }
@@ -223,8 +219,8 @@ fun StreaksAppBar() {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = White,
-            titleContentColor = Color.Black,
-            actionIconContentColor = Color.Black
+            titleContentColor = Black,
+            actionIconContentColor = Black
         ),
         title = {
             Text(
@@ -253,23 +249,15 @@ fun StreakMileStoneCard(
 ) {
     val cardShape = RoundedCornerShape(dimenMed)
     Card(
-        modifier,
+        modifier = modifier,
         shape = cardShape,
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 2.dp
-        )
+        colors = CardDefaults.cardColors(containerColor = White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
 
         Row(
-            Modifier
-                .background(
-                    Brush.linearGradient(
-                        milestone.gradient
-                    )
-                )
+            modifier = Modifier
+                .background(Brush.linearGradient(milestone.gradient))
                 .padding(dimenMed),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -277,16 +265,13 @@ fun StreakMileStoneCard(
             Image(
                 painter = rememberVectorPainter(image = ImageVector.vectorResource(icon)),
                 contentDescription = null,
-                Modifier
+                modifier = Modifier
                     .size(36.dp)
                     .padding(4.dp)
             )
             Text(
-                stringResource(
-                    R.string.X_day_streak_achiever,
-                    milestone.level.days
-                ),
-                Modifier
+                text = stringResource(R.string.X_day_streak_achiever, milestone.level.days),
+                modifier = Modifier
                     .weight(1f)
                     .padding(start = dimenLow),
                 fontSize = 15.sp
@@ -295,14 +280,120 @@ fun StreakMileStoneCard(
                 Icon(
                     imageVector = Icons.Filled.Check,
                     contentDescription = null,
-                    tint = Color.White,
+                    tint = White,
                     modifier = Modifier
                         .size(24.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.secondary)
+                        .background(Secondary)
                         .padding(4.dp)
                 )
             }
         }
+    }
+}
+
+@Composable
+fun StreakCalendarUI(streakDays: List<Int>, viewModel: StreakViewModel) {
+    val calendar = Calendar.getInstance()
+    val currentMonth = calendar.get(Calendar.MONTH)
+    val currentYear = calendar.get(Calendar.YEAR)
+
+    val streakAchieved = viewModel.streaksUiState.collectAsState()
+    val nextStreak = streakAchieved.value.nextMilestone?.level?.days ?: 0
+
+    // Get the first two weeks of the current month with adjusted previous month's days
+    val weeksInMonth =
+        viewModel.getWeeksInMonthWithPreviousMonth(currentYear, currentMonth).take(2)
+    Column {
+
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+                .border(
+                    width = 1.dp,
+                    color = Gray.copy(0.2f),
+                    shape = RoundedCornerShape(dimenMed + dimenLow)
+                )
+                .padding(16.dp)
+
+        ) {
+            // Weekday Row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 4.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                listOf("M", "T", "W", "T", "F", "S", "S").forEach { day ->
+                    Box(
+                        modifier = Modifier.width(40.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = day,
+                            color = Gray,
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Display calendar days for the first two weeks
+            weeksInMonth.forEach { week ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    val subList =
+                        weeksInMonth.flatten().let { month ->
+                            val index = month.indexOf(streakDays.first())
+                            month.subList(index, nextStreak + 1)
+                        }
+
+                    week.forEach { day ->
+                        Box(
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape)
+                                .background(
+                                    if (day != null && streakDays.contains(day)) Secondary else Transparent
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            if (day != null && streakDays.contains(day)) {
+                                Icon(
+                                    painter = painterResource(R.drawable.streak_fire_yellow),
+                                    contentDescription = null,
+                                    tint = White,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            } else {
+                                Text(
+                                    text = day?.toString() ?: "",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = if (subList.contains(day)) {
+                                        Black
+                                    } else {
+                                        Gray.copy(0.3f)
+                                    },
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+
+                        }
+                    }
+                }
+            }
+            SpacerMedV()
+        }
+        SpacerLowV()
     }
 }

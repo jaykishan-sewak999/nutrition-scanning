@@ -1,5 +1,6 @@
 package com.example.nutritionscanning.presenatation.nutritionresult
 
+import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
@@ -47,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
+import coil.compose.AsyncImage
 import com.example.nutritionscanning.R
 import com.example.nutritionscanning.presenatation.core.utils.DynamicSpacer
 import com.example.nutritionscanning.presenatation.core.utils.mockdata.calculateTotalMacronutrients
@@ -70,7 +72,9 @@ val COLLAPSED_TOP_BAR_HEIGHT = 56.dp
 val EXPANDED_TOP_BAR_HEIGHT = 300.dp
 
 @Composable
-fun NutritionResultsScreen() {
+fun NutritionResultsScreen(
+    imageUri: Uri? = null,
+) {
 
     val listState = rememberLazyListState()
 
@@ -102,7 +106,7 @@ fun NutritionResultsScreen() {
                 LazyColumn(state = listState, modifier = Modifier.fillMaxSize()) {
                     item {
                         // Food Image and Title Section
-                        ExpandedTopBar()
+                        ExpandedTopBar(imageUri)
                     }
                     item {
                         // Nutritional Overview
@@ -127,7 +131,7 @@ fun NutritionResultsScreen() {
 }
 
 @Composable
-fun ExpandedTopBar() {
+fun ExpandedTopBar(imageUri: Uri? = null) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -135,11 +139,11 @@ fun ExpandedTopBar() {
         contentAlignment = Alignment.BottomStart
     ) {
 
-        Image(
+        AsyncImage(
+            model = imageUri ?: R.drawable.pepperoni_pizza,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp),
-            painter = painterResource(R.drawable.pepperoni_pizza),
             contentDescription = stringResource(R.string.txt_nutrition_result),
             contentScale = ContentScale.Crop,
         )
@@ -424,6 +428,7 @@ fun WeeklyMealNutritionChart() {
                         }
                     )
                     data.barWidth = 0.2f
+                    data.setDrawValues(false)
                 }
             },
             modifier = Modifier

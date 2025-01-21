@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
 
                     val isBelongToBottomScreens = bottomScreens.any { screen ->
                         currentDestination?.hierarchy?.any { route ->
-                            route.route != BottomScreens.Scan.route::class.qualifiedName && route.route == screen.route::class.qualifiedName
+                            route.route.toString().substringBefore("?") != BottomScreens.Scan.route::class.qualifiedName && route.route.toString().substringBefore("?") == screen.route::class.qualifiedName
                         } == true
                     }
 
