@@ -72,15 +72,23 @@ nutrition-scanning/
 ## Screenshots 📸
 
 
-### Lower resolution device
-![Scanning screen](#)  
-![Nutrition result screen](#)
-![Streak screen](#)
+### Lower resolution device:
+
+<p align="center">
+   <img src="https://github.com/user-attachments/assets/9b83a7ac-bdc0-4553-a334-ea671d8a6336" width="250" alt="Scanning Screen"/>
+   <img src="https://github.com/user-attachments/assets/dfe2dd4c-76f5-4036-ba59-16872462557c" width="250" alt="Nutrition result screen"/>
+   <img src="https://github.com/user-attachments/assets/9121f4fc-d68e-4406-9820-f4de4ee9c92b" width="250" alt="Streak screen"/>
+</p>
+
 
 ### Higher resolution device
-![Scanning screen](#)  
-![Nutrition result screen](#)
-![Streak screen](#)
+
+<p align="center">
+   <img src="https://github.com/user-attachments/assets/b0396f94-a11b-4bc8-bced-d8d67306a920" width="250" alt="Scanning Screen"/>
+   <img src="https://github.com/user-attachments/assets/555748ab-dc7f-4497-ac96-4588b5be787d" width="250" alt="Nutrition result screen"/>
+   <img src="https://github.com/user-attachments/assets/bc3a80ea-fe75-44f3-814a-2d805ebf1cd2" width="250" alt="Streak screen"/>
+</p>
+
 
 ---
 
