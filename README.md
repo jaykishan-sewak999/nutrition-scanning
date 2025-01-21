@@ -14,9 +14,9 @@ User friendly camera for conveniently take picture of your meal or food
 ### 2. Comprehensive Analysis:
 The image analysis process considers ingredients of the food to provide information about important nutrients of it.
 Analysis breakdown nutrition result into 3 parts:
-1.  **Nutritional Overview**: Displays the amount of **calories** contained in the food item.
-2.  **Macronutrients**: Breaks down the content of **protein**, **carbs**, and **fats** in the food.
-3.  **Micronutrients**: Insights int amount of **vitamins** and **minerals** are within the food.
+1.  **Nutritional Overview:** Displays the amount of **calories** contained in the food item.
+2.  **Macronutrients:** Breaks down the content of **protein**, **carbs**, and **fats** in the food.
+3.  **Micronutrients:** Insights int amount of **vitamins** and **minerals** are within the food.
 
 ### 3. Streak feature:
 - Helps user to stay consistent about what they consume by using the nutrak app.
@@ -33,9 +33,9 @@ Analysis breakdown nutrition result into 3 parts:
 
 ## Libraries
 - **Dependency Injection:** [Hilt](https://dagger.dev/hilt/)
-- **Animations:**: [Lottie](https://github.com/airbnb/lottie-android)
-- **Camera**: [CameraX](https://developer.android.com/jetpack/androidx/releases/camera)
-- **Type safe navigation**: [Kotlin serialization](https://kotlinlang.org/docs/serialization.html)
+- **Animations:** [Lottie](https://github.com/airbnb/lottie-android)
+- **Camera:** [CameraX](https://developer.android.com/jetpack/androidx/releases/camera)
+- **Type safe navigation:** [Kotlin serialization](https://kotlinlang.org/docs/serialization.html)
 
 ---
 
